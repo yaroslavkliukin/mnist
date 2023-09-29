@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "mnist"
+version = "0.1.0"
+description = "Predict numbers from 0 to 9"
+authors = ["yaroslavkliukin"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+torch = {version = "^2.0.1+cpu", source = "pytorch"}
+torchvision = {version = "^0.15.2+cpu", source = "pytorch"}
+
+[[tool.poetry.source]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

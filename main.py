@@ -5,7 +5,7 @@ from model import NeuralNet
 from data_load import data_load
 from functions import train, test
 
-def main(num_epochs=2, batch_size=100, learning_rate=1e-3):
+def main(num_epochs=2, batch_size=100, learning_rate=1e-3, save_path="model.pth"):
     # Device configuration
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -29,6 +29,8 @@ def main(num_epochs=2, batch_size=100, learning_rate=1e-3):
 
     # Test the model
     test(model, test_loader, device)
+
+    torch.save(model.state_dict(), save_path)
 
 if __name__=="__main__":
     main()
