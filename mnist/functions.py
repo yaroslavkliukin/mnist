@@ -1,19 +1,19 @@
 import torch
+import pandas as pd
 
 def train(model, train_loader, criterion, optimizer, device, num_epochs=2):
+    model.train()
+
     n_total_steps = len(train_loader)
     for epoch in range(num_epochs):
         for i, (images, labels) in enumerate(train_loader):  
-            # origin shape: [100, 1, 28, 28]
-            # resized: [100, 784]
+
             images = images.reshape(-1, 28*28).to(device)
             labels = labels.to(device)
             
-            # Forward pass
             outputs = model(images)
             loss = criterion(outputs, labels)
             
-            # Backward and optimize
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
@@ -23,17 +23,26 @@ def train(model, train_loader, criterion, optimizer, device, num_epochs=2):
 
 
 @torch.no_grad()
-def test(model, test_loader, device):
+def test(model, test_loader, device, answers_path):
+    model.eval()
+
+    answers = list()
     n_correct = 0
     n_samples = 0
     for images, labels in test_loader:
         images = images.reshape(-1, 28*28).to(device)
         labels = labels.to(device)
         outputs = model(images)
-        # max returns (value ,index)
+
         _, predicted = torch.max(outputs.data, 1)
+        answer = [x.item() for x in predicted]
+        answers.extend(answer)
+    
         n_samples += labels.size(0)
         n_correct += (predicted == labels).sum().item()
+
+    answers_frame = pd.DataFrame(data={"labels": answers})
+    answers_frame.to_csv(answers_path)
 
     acc = 100.0 * n_correct / n_samples
     print(f'Accuracy of the network on the 10000 test images: {acc} %')
