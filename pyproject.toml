@@ -2,14 +2,39 @@
 name = "mnist"
 version = "0.1.0"
 description = "Predict numbers from 0 to 9"
-authors = ["yaroslavkliukin"]
+authors = ["Yaroslav Kliukin <kliukin.iad@phystech.edu>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.13"
+python = "~3.10"
 torch = {version = "^2.0.1+cpu", source = "pytorch"}
 torchvision = {version = "^0.15.2+cpu", source = "pytorch"}
 pandas = "^2.1.1"
+
+[tool.poetry.dev-dependencies]
+pre-commit = "^3.4.0"
+
+[tool.black]
+line-length = 90
+target-version = ["py310"]
+
+[tool.isort]
+src_paths = ["mnist"]
+profile = "black"
+line_length = 90
+lines_after_imports = 2
+
+[tool.nbqa.config]
+black = "pyproject.toml"
+isort = "pyproject.toml"
+flake8 = "setup.cfg"
+
+[tool.nbqa.addopts]
+flake8 = ["--extend-ignore=E402"]
+
+[tool.nbqa.mutate]
+black = 1
+isort = 1
 
 [[tool.poetry.source]]
 name = "pytorch"
