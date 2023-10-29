@@ -1,5 +1,4 @@
-data
-*.csv
 .venv
 __pycache__
 *.pth
+*csv
