@@ -6,7 +6,9 @@ from functions import train
 from model import NeuralNet
 
 
-def main(num_epochs=2, batch_size=100, learning_rate=1e-3, save_path="model.pth"):
+def main(
+    num_epochs=2, batch_size=100, learning_rate=1e-3, save_path="./models/model.pth"
+):
     # Device configuration
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

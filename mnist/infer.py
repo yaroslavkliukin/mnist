@@ -5,7 +5,11 @@ from functions import test
 from model import NeuralNet
 
 
-def main(batch_size=100, model_path="model.pth", answers_path="answers.csv"):
+def main(
+    batch_size=100,
+    model_path="./models/model.pth",
+    answers_path="./predictions/answers.csv",
+):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     input_size = 784
