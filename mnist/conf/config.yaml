@@ -1,0 +1,18 @@
+model:
+  name: feedforward
+  input_size: 784
+  hidden_size: 500
+  num_classes: 10
+
+data:
+  model_path: ./models/model.pth
+  preds_path: ./predictions/answers.csv
+
+train:
+  num_epochs: 2
+  batch_size: 128
+  learning_rate: 0.001
+  seed: 123
+
+infer:
+  batch_size: 128
