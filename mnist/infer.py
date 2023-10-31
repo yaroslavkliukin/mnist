@@ -1,14 +1,19 @@
 import hydra
 import torch
-from omegaconf import DictConfig
+from hydra.core.config_store import ConfigStore
 
+from conf.config import Params
 from data_load import load_test
 from functions import test
 from model import NeuralNet
 
 
+cs = ConfigStore.instance()
+cs.store(name="params", node=Params)
+
+
 @hydra.main(config_path="conf", config_name="config", version_base="1.3")
-def main(cfg: DictConfig):
+def main(cfg: Params):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     test_loader = load_test(cfg.infer.batch_size)

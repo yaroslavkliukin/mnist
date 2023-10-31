@@ -1,15 +1,20 @@
 import hydra
 import torch
 import torch.nn as nn
-from omegaconf import DictConfig
+from hydra.core.config_store import ConfigStore
 
+from conf.config import Params
 from data_load import load_train
 from functions import set_seed, train
 from model import NeuralNet
 
 
+cs = ConfigStore.instance()
+cs.store(name="params", node=Params)
+
+
 @hydra.main(config_path="conf", config_name="config", version_base="1.3")
-def main(cfg: DictConfig):
+def main(cfg: Params):
     set_seed(cfg.train.seed)
 
     # Device configuration
