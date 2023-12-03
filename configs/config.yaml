@@ -16,3 +16,8 @@ train:
 
 infer:
   batch_size: 128
+
+loggers:
+  mlflow:
+    experiment_name: exp_1
+    tracking_uri: http://localhost:8888

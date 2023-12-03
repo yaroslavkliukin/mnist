@@ -4,7 +4,7 @@ import torch
 from configs.config import Params
 from hydra.core.config_store import ConfigStore
 
-from data_load import load_train
+from data_load import load_test, load_train
 from functions import set_seed
 from model import MNISTNet
 
@@ -19,15 +19,24 @@ def main(cfg: Params):
 
     # Load data
     train_loader = load_train(cfg.train.batch_size)
+    val_loader = load_test(cfg.infer.batch_size)
 
     # Initiating model
     model = MNISTNet(cfg.model.input_size, cfg.model.hidden_size, cfg.model.num_classes)
 
+    loggers = [
+        pl.loggers.MLFlowLogger(
+            experiment_name=cfg.loggers.mlflow.experiment_name,
+            tracking_uri=cfg.loggers.mlflow.tracking_uri,
+        )
+    ]
+
     trainer = pl.Trainer(
         max_epochs=cfg.train.num_epochs,
+        logger=loggers,
     )
 
-    trainer.fit(model=model, train_dataloaders=train_loader)
+    trainer.fit(model=model, train_dataloaders=train_loader, val_dataloaders=val_loader)
 
     torch.save(model.state_dict(), cfg.data.model_path)
 

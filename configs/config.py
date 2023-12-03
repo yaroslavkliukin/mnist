@@ -29,8 +29,20 @@ class Infer:
 
 
 @dataclass
+class MLflow:
+    experiment_name: str
+    tracking_uri: str
+
+
+@dataclass
+class Loggers:
+    mlflow: MLflow
+
+
+@dataclass
 class Params:
     model: Model
     data: Data
     train: Train
     infer: Infer
+    loggers: Loggers
