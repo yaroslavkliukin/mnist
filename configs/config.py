@@ -2,11 +2,20 @@ from dataclasses import dataclass
 
 
 @dataclass
+class OnnxParameters:
+    export_to_onnx: bool
+    onnx_path: str
+    input_shape: list
+    mlflow_onnx_export_path: str
+
+
+@dataclass
 class Model:
     name: str
     input_size: int
     hidden_size: int
     num_classes: int
+    onnx_parameters: OnnxParameters
 
 
 @dataclass
@@ -26,6 +35,8 @@ class Train:
 @dataclass
 class Infer:
     batch_size: int
+    inference_port: int
+    inference_addr: str
 
 
 @dataclass

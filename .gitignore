@@ -162,3 +162,6 @@ cython_debug/
 outputs/*
 lightning_logs
 mlruns/
+683254089299119889/*
+models/onnx_model/*
+models/best_model.onnx

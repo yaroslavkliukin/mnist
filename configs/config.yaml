@@ -3,6 +3,11 @@ model:
   input_size: 784
   hidden_size: 500
   num_classes: 10
+  onnx_parameters:
+    export_to_onnx: True
+    onnx_path: ./models/best_model.onnx
+    mlflow_onnx_export_path: ./models/onnx_model
+    input_shape: [1, 784]
 
 data:
   model_path: ./models/model.pth
@@ -16,8 +21,10 @@ train:
 
 infer:
   batch_size: 128
+  inference_port: 8891
+  inference_addr: http://127.0.0.1:8891
 
 loggers:
   mlflow:
     experiment_name: exp_1
-    tracking_uri: http://localhost:8888
+    tracking_uri: http://localhost:8890
