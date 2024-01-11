@@ -12,16 +12,11 @@ def load_train(cfg, save_path="./data"):
             "pull",
             f"{cfg.data.train_data_file}.dvc",
             f"{cfg.data.train_labels_file}.dvc",
+            f"{cfg.data.test_data_file}.dvc",
+            f"{cfg.data.test_labels_file}.dvc",
         ]
     )
-    subprocess.run(
-        [
-            "dvc",
-            "pull",
-            f"{cfg.data.train_data_file}.gz.dvc",
-            f"{cfg.data.train_labels_file}.gz.dvc",
-        ]
-    )
+
     train_dataset = torchvision.datasets.MNIST(
         root=save_path, train=True, transform=transforms.ToTensor()
     )
@@ -34,22 +29,7 @@ def load_train(cfg, save_path="./data"):
 
 
 def load_test(cfg, save_path="./data"):
-    subprocess.run(
-        [
-            "dvc",
-            "pull",
-            f"{cfg.data.test_data_file}.dvc",
-            f"{cfg.data.test_labels_file}.dvc",
-        ]
-    )
-    subprocess.run(
-        [
-            "dvc",
-            "pull",
-            f"{cfg.data.test_data_file}.gz.dvc",
-            f"{cfg.data.test_labels_file}.gz.dvc",
-        ]
-    )
+
     test_dataset = torchvision.datasets.MNIST(
         root=save_path, train=False, transform=transforms.ToTensor()
     )
