@@ -12,6 +12,10 @@ model:
 data:
   model_path: ./models/model.pth
   preds_path: ./predictions/answers.csv
+  train_data_file: ./data/MNIST/raw/train-images-idx3-ubyte
+  train_labels_file: ./data/MNIST/raw/train-labels-idx1-ubyte
+  test_data_file: ./data/MNIST/raw/t10k-images-idx3-ubyte
+  test_labels_file: ./data/MNIST/raw/t10k-labels-idx1-ubyte
 
 train:
   num_epochs: 2

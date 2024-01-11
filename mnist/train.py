@@ -23,8 +23,8 @@ def main(tracking_uri: str):
     set_seed(cfg.train.seed)
 
     # Load data
-    train_loader = load_train(cfg.train.batch_size)
-    val_loader = load_test(cfg.infer.batch_size)
+    train_loader = load_train(cfg)
+    val_loader = load_test(cfg)
 
     # Initiating model
     model = MNISTNet(cfg.model.input_size, cfg.model.hidden_size, cfg.model.num_classes)

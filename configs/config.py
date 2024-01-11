@@ -22,6 +22,10 @@ class Model:
 class Data:
     model_path: str
     preds_path: str
+    train_data_file: str
+    train_labels_file: str
+    test_data_file: str
+    test_labels_file: str
 
 
 @dataclass
